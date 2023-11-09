@@ -95,10 +95,10 @@
         <input type="password" placeholder="Password..." required>
         <input type="password" placeholder="Confirm Password..." required>
         <input type="text" placeholder="Pin...">
-        <button type="submit">Login</button>
+        <button type="submit">Sign Up</button>
     </form>
     <div class="hr"></div>
-    <div class="text-center signup-links">Don't Have an account ? <a href="signup">Create One</a></div>
+    <div class="text-center signup-links">Already Have an account ? <a href="index.php">Login Now</a></div>
 </main>
 
 </html>
