@@ -39,7 +39,6 @@
       echo "<script> alert('User has been created!');
                                window.location='transfermoney.php';
                      </script>";
-
     }
   }
   ?>

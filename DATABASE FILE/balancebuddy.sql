@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `banksysphp`
+-- Database: `BalanceBuddy`
 --
 
 -- --------------------------------------------------------
@@ -55,29 +55,30 @@ INSERT INTO `transaction` (`sno`, `sender`, `receiver`, `balance`, `datetime`) V
 
 CREATE TABLE `users` (
   `id` int(3) NOT NULL,
-  `name` text NOT NULL,
+  `username` text NOT NULL,
   `email` varchar(30) NOT NULL,
-  `gender` varchar(155) NOT NULL,
-  `balance` int(8) NOT NULL
+  `password` varchar(155) NOT NULL,
+  `pin` int(4) NOT NULL,
+  `balance` int(8) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `gender`, `balance`) VALUES
-(1, 'Cassie Perkins', 'cassiep@gmail.com', 'Female', 62500),
-(2, 'Keith McKay', 'keithmc@gmail.com', 'Male', 40650),
-(3, 'Michelle Cruz', 'cruzmch@gmail.com', 'Female', 113750),
-(4, 'Willbert Flyn', 'willbertfl@gmail.com', 'Male', 100005),
-(5, 'Natalie Cloutier', 'natcloutier@gmail.com', 'Female', 127350),
-(6, 'Evelyn Kent', 'evelynkent@gmail.com', 'Female', 81000),
-(7, 'John Russel', 'russelj@gmail.com', 'Male', 69005),
-(8, 'Virginia Hopkins', 'virginhop@gmail.com', 'Female', 210300),
-(9, 'Christine Moore', 'christine@gmail.com', 'Female', 99000),
-(10, 'Thomas Greenwood', 'thomasgr@gmail.com', 'Male', 40000),
-(19, 'Matthew Ingalls', 'matthewlls@gmail.com', 'Male', 40000),
-(20, 'Kelly Wilkins', 'wilkelly@gmail.com', 'Female', 29610);
+-- INSERT INTO `users` (`id`, `name`, `email`, `gender`, `balance`) VALUES
+-- (1, 'Cassie Perkins', 'cassiep@gmail.com', 'Female', 62500),
+-- (2, 'Keith McKay', 'keithmc@gmail.com', 'Male', 40650),
+-- (3, 'Michelle Cruz', 'cruzmch@gmail.com', 'Female', 113750),
+-- (4, 'Willbert Flyn', 'willbertfl@gmail.com', 'Male', 100005),
+-- (5, 'Natalie Cloutier', 'natcloutier@gmail.com', 'Female', 127350),
+-- (6, 'Evelyn Kent', 'evelynkent@gmail.com', 'Female', 81000),
+-- (7, 'John Russel', 'russelj@gmail.com', 'Male', 69005),
+-- (8, 'Virginia Hopkins', 'virginhop@gmail.com', 'Female', 210300),
+-- (9, 'Christine Moore', 'christine@gmail.com', 'Female', 99000),
+-- (10, 'Thomas Greenwood', 'thomasgr@gmail.com', 'Male', 40000),
+-- (19, 'Matthew Ingalls', 'matthewlls@gmail.com', 'Male', 40000),
+-- (20, 'Kelly Wilkins', 'wilkelly@gmail.com', 'Female', 29610);
 
 --
 -- Indexes for dumped tables

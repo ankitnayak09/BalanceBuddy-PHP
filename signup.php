@@ -88,14 +88,30 @@
 <body>
 </body>
 <main>
-    <form action="/login.php">
+    <?php include 'config.php';
+    if (isset($_POST['submit'])) {
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $pin = $_POST['pin'];
+        $sql = "insert into users(username,email,password,pin) values('{$username}','{$email}','{$password}','{$pin}')";
+        $result = mysqli_query($conn, $sql);
+        echo $result;
+        if ($result) {
+            echo "<script> alert('User has been created!');
+            window.location='index.php';
+  </script>";
+        }
+    }
+    ?>
+    <form method="post">
         <h1>Balance Buddy</h1>
-        <input type="text" placeholder="Username..." required>
-        <input type="email" placeholder="Email..." required>
-        <input type="password" placeholder="Password..." required>
+        <input type="text" placeholder="Username..." name="username" required>
+        <input type="email" placeholder="Email..." name="email" required>
+        <input type="password" placeholder="Password..." name="password" required>
         <input type="password" placeholder="Confirm Password..." required>
-        <input type="text" placeholder="Pin...">
-        <button type="submit">Sign Up</button>
+        <input type="text" name="pin" placeholder="Pin...">
+        <button type="submit" name="submit">Sign Up</button>
     </form>
     <div class="hr"></div>
     <div class="text-center signup-links">Already Have an account ? <a href="index.php">Login Now</a></div>

@@ -74,10 +74,10 @@
                                         ; ?>
                                     </td>
                                     <td class="py-2">
-                                        <?php echo $rows['name'] ?>
+                                        <?php echo $rows['username'] ?>
                                     </td>
                                     <td class="py-2">
-                                        <?php echo $rows['gender'] ?>
+                                        <?php echo $rows['email'] ?>
                                     </td>
                                     <td class="py-2">Rs.
                                         <?php echo $rows['balance'] ?> /-

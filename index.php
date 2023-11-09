@@ -88,11 +88,39 @@
 <body>
 </body>
 <main>
-    <form action="/login.php">
+    <?php include 'config.php';
+    if (isset($_POST['submit'])) {
+        // $username = $_POST['username'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        // $pin = $_POST['pin'];
+        if (empty($email) || empty($password)) {
+            echo '<script>alert("Email Or Password Cannot be Empty")</script>';
+            return;
+        }
+        if ($email == 'admin@gmail.com' && $password == 'admin') {
+            echo '<script>
+                window.location = "admin.php";
+            </script>';
+        }
+        $sql = "select * from users where email='{$email}' and password='{$password}'";
+        $result = mysqli_query($conn, $sql);
+        if (mysqli_num_rows($result) > 0) {
+            echo "<script>
+                    window.location='home.php';
+                </script>";
+        } else {
+            echo "<script>
+                alert('Invalid Credentials')
+                </script>";
+        }
+    }
+    ?>
+    <form method="post">
         <h1>Balance Buddy</h1>
-        <input type="email" placeholder="Email..." required>
-        <input type="password" placeholder="Password..." required>
-        <button type="submit">Login</button>
+        <input type="email" placeholder="Email..." name="email" required>
+        <input type="password" placeholder="Password..." name="password" required>
+        <button type="submit" name="submit">Login</button>
     </form>
     <div class="hr"></div>
     <div class="text-center signup-links">Don't Have an account ? <a href="signup.php">Create One</a></div>
