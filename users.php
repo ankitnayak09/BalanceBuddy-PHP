@@ -1,6 +1,10 @@
 <?php
 session_start();
 include 'config.php';
+if (!isset($_SESSION["loggedin"]) || $_SESSION["username"] != "admin") {
+    header("location: login.php");
+    exit();
+}
 
 if (isset($_POST['submit'])) {
     $to = $_POST['to'];
