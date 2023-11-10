@@ -1,129 +1,138 @@
-<!DOCTYPE html>
+<?php
+session_start();
+// if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] != true) {
+//   header("location: login.php");
+//   exit();
+// }
+include 'config.php';
+?>
+
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        body {
-            background-color: #22223b;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/navbar.css">
 
-        h1 {
-            font-family: 'Mono';
-            color: #f2e9e4;
-            text-align: center
-        }
+  <title>Balance Buddy</title>
 
-        main {
-            background-color: #4a4e69;
-            border-radius: 20px;
-            padding: 50px;
-        }
+  <style>
+    /* Custom CSS */
+    body {
+      background-color: #22223B;
+    }
 
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        input {
-            padding: 5px 10px;
-        }
-
-        button {
-            width: 100%;
-            padding: 5px 0;
-            cursor: pointer;
-            transition: 0.5s;
-            font-weight: bold;
-
-        }
-
-        input,
-        button {
-            border-radius: 5px;
-            border: none;
-            font-size: 1.5rem;
-        }
-
-        button:hover {
-            transform: scale(1.05);
-            background-color: #22223B;
-            color: #F2E9E4;
-        }
-
-        button:active {
-            transform: scale(0.95);
-        }
-
-        .hr {
-            background-color: #F2E9E4;
-            height: 1px;
-            width: 100%;
-            margin: 0 auto;
-        }
-
-        div.signup-links {
-            color: #F2E9E4;
-            margin-top: 20px;
-        }
-    </style>
+    .hero-div {
+      background-image: url("img/hero.jpg");
+      height: 500px;
+      overflow: hidden;
+    }
+  </style>
 </head>
 
 <body>
-</body>
-<main>
-    <?php include 'config.php';
-    if (isset($_POST['submit'])) {
-        // $username = $_POST['username'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        // $pin = $_POST['pin'];
-        if (empty($email) || empty($password)) {
-            echo '<script>alert("Email Or Password Cannot be Empty")</script>';
-            return;
-        }
-        if ($email == 'admin@gmail.com' && $password == 'admin') {
-            echo '<script>
-                window.location = "admin.php";
-            </script>';
-        }
-        $sql = "select * from users where email='{$email}' and password='{$password}'";
-        $result = mysqli_query($conn, $sql);
-        if (mysqli_num_rows($result) > 0) {
-            echo "<script>
-                    window.location='home.php';
-                </script>";
-        } else {
-            echo "<script>
-                alert('Invalid Credentials')
-                </script>";
-        }
+  <?php
+  include 'navbar.php';
+  ?>
+
+  <div class="container-fluid">
+    <!-- Introduction section -->
+    <div class="row intro">
+
+      <div class="col-sm-12 col-md img text-center hero-div">
+        <!-- TODO: Replace Hero Image -->
+        <!-- <img src="img/bank.png" class="img-fluid pt-2"> -->
+        <!-- <img src="img/hero.jpg" class="img-fluid pt-2"> -->
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col">
+        <h1 class="username-greeting" style="transform:scale(1) !important; color: #F2E9E4;">Hi,
+          <?= $_SESSION['username']; ?>
+        </h1>
+      </div>
+    </div>
+
+    <?php
+    $id = $_SESSION["id"];
+    $result = mysqli_query($conn, "select * from users where id='$id'");
+    $balance = 0;
+    if ($result) {
+      while ($row = mysqli_fetch_array($result)) {
+        $balance = $row['balance'];
+      }
     }
     ?>
-    <form method="post">
-        <h1>Balance Buddy</h1>
-        <input type="email" placeholder="Email..." name="email" required>
-        <input type="password" placeholder="Password..." name="password" required>
-        <button type="submit" name="submit">Login</button>
-    </form>
-    <div class="hr"></div>
-    <div class="text-center signup-links">Don't Have an account ? <a href="signup.php">Create One</a></div>
-</main>
+
+    <?php if ($_SESSION["username"] != "admin") { ?>
+      <h2>Balance:
+        <span style="color: #F2E9E4">
+          <?= $balance ?>
+        </span>
+      </h2>
+    <?php } ?>
+
+    <!-- Activity section -->
+    <div class="row activity text-center py-5">
+      <!-- TODO: Add Some Other Action -->
+      <!-- <div class="col-md act">
+        <img src="img/user.jpg" class="img-fluid my-2" style="border-radius: 50%">
+        <br>
+        <a href="createuser.php"><button style="background-color : #2785C4;" style="border-radius:0%">Create a
+            User</button></a>
+      </div>
+      <div class="col-md act">
+        <img src="img/ruser.jpg" class="img-fluid my-2" style="border-radius: 50%">
+        <br>
+        <a href="removeuser.php"><button style="background-color : #2785C4;" style="border-radius:0%">Delete
+            Users</button></a>
+      </div> -->
+      <div class="col-md act">
+        <img src="img/transfer.jpg" class="img-fluid my-2" style="border-radius: 50%">
+        <br>
+        <!-- <a href="transfermoney.php"><button style="background-color : #2785C4;">Make a Transaction</button></a> -->
+        <?php $url = "";
+        if ($_SESSION["username"] == "admin") {
+          $url = "depositmoney.php";
+        } else {
+          $url = "selecteduserdetail.php?id=" . $_COOKIE['id'];
+        } ?>
+        <a href="<?= $url ?>"><button style="background-color : #2785C4;">
+            <?php if ($_SESSION["username"] == "admin") {
+              echo "Deposit Money";
+            } else {
+              echo "Make a Transaction";
+            } ?>
+          </button></a>
+      </div>
+      <div class="col-md act">
+        <img src="img/history.jpg" class="img-fluid my-2" style="border-radius: 50%">
+        <br>
+        <a href="transactionhistory.php"><button style="background-color : #2785C4;">Transaction History</button></a>
+      </div>
+
+    </div>
+  </div>
+  <footer class="text-center mt-5 py-2">
+    <p>Developed by <a href="#">
+        <b>Ankit Kumar Nayak</b>
+      </a>
+    </p>
+  </footer>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+    crossorigin="anonymous"></script>
+</body>
 
 </html>
