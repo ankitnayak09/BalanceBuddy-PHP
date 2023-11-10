@@ -94,10 +94,14 @@
         $email = $_POST['email'];
         $password = $_POST['password'];
         $pin = $_POST['pin'];
+        $exist = false;
+        if (mysqli_num_rows(mysqli_query($conn, "select * from users where email='$email'")) > 0) {
+            $exist = true;
+            echo "<script>alert('User already Exist')</script>";
+        }
         $sql = "insert into users(username,email,password,pin) values('{$username}','{$email}','{$password}','{$pin}')";
         $result = mysqli_query($conn, $sql);
-        echo $result;
-        if ($result) {
+        if ($result && !$exist) {
             echo "<script> alert('User has been created!');
             window.location='index.php';
   </script>";
