@@ -41,7 +41,10 @@ footer p {
   font-size: 15px;
 }
 
-
+.username-greeting {
+  text-align: center;
+  width: 100%;
+}
 
 @media only screen and (orientation: portrait) {
   .intro {
