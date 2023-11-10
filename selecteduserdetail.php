@@ -6,6 +6,7 @@ if (isset($_POST['submit'])) {
     $from = $_GET['id'];
     $to = $_POST['to'];
     $amount = $_POST['amount'];
+    $pin = $_POST['pin'];
 
     $sql = "SELECT * from users where id=$from";
     $query = mysqli_query($conn, $sql);
@@ -14,6 +15,7 @@ if (isset($_POST['submit'])) {
     $sql = "SELECT * from users where id=$to";
     $query = mysqli_query($conn, $sql);
     $sql2 = mysqli_fetch_array($query);
+
 
 
 
@@ -42,6 +44,8 @@ if (isset($_POST['submit'])) {
         echo "<script type='text/javascript'>";
         echo "alert('Oops! Zero value cannot be transferred')";
         echo "</script>";
+    } else if ($pin != $sql1['pin']) {
+        echo '<script>alert("Wrong Pin");</script>';
     } else {
 
         // deducting amount from sender's account
@@ -115,7 +119,7 @@ if (isset($_POST['submit'])) {
             <?php if ($_SESSION["username"] == "admin") {
                 echo "Deposit Money";
             } else {
-                echo "Transact Money";
+                echo "Send Money";
             }
             ?>
         </h2>
@@ -193,6 +197,13 @@ if (isset($_POST['submit'])) {
                     <input type="number" class="form-control" name="amount" required>
                 </div>
 
+            </div>
+
+            <div class="row my-3">
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <input type="number" name="pin" class="form-control" placeholder="Enter Your Pin" required>
+                </div>
             </div>
 
             <br><br>

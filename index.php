@@ -109,7 +109,7 @@ include 'config.php';
             <?php if ($_SESSION["username"] == "admin") {
               echo "Deposit Money";
             } else {
-              echo "Make a Transaction";
+              echo "Send Money";
             } ?>
           </button></a>
       </div>

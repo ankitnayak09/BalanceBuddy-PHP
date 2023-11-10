@@ -16,6 +16,11 @@
         <li class="nav-item">
           <a class="nav-link" href="users.php" style="color: #F2E9E4;"><b>All Users</b></a>
         </li>
+      <?php } else { ?>
+        <li class="nav-item">
+          <a class="nav-link" href="selecteduserdetail.php?id=<?= $_COOKIE["id"] ?>" style="color: #F2E9E4;"><b>Send
+              Money</b></a>
+        </li>
       <?php } ?>
       <li class="nav-item">
         <a class="nav-link" href="transactionhistory.php" style="color: #F2E9E4;"><b>Transaction History</b></a>
