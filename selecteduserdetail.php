@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'config.php';
 
 if (isset($_POST['submit'])) {
@@ -54,8 +55,8 @@ if (isset($_POST['submit'])) {
         $sql = "UPDATE users set balance=$newbalance where id=$to";
         mysqli_query($conn, $sql);
 
-        $sender = $sql1['name'];
-        $receiver = $sql2['name'];
+        $sender = $sql1['username'];
+        $receiver = $sql2['username'];
         $sql = "INSERT INTO transaction(`sender`, `receiver`, `balance`) VALUES ('$sender','$receiver','$amount')";
         $query = mysqli_query($conn, $sql);
 
@@ -96,17 +97,28 @@ if (isset($_POST['submit'])) {
             transform: scale(1.1);
             color: white;
         }
+
+        body {
+            background-color: #22223b;
+        }
     </style>
 </head>
 
-<body style="background-color : #ececec;">
+<body>
 
     <?php
     include 'navbar.php';
     ?>
 
     <div class="container">
-        <h2 class="text-center pt-4" style="color : #6c757d;">Transaction</h2>
+        <h2 class="text-center pt-4" style="color : #6c757d;">
+            <?php if ($_SESSION["username"] == "admin") {
+                echo "Deposit Money";
+            } else {
+                echo "Transact Money";
+            }
+            ?>
+        </h2>
         <?php
         include 'config.php';
         $sid = $_GET['id'];
@@ -131,7 +143,7 @@ if (isset($_POST['submit'])) {
                             <?php echo $rows['id'] ?>
                         </td>
                         <td class="py-2">
-                            <?php echo $rows['name'] ?>
+                            <?php echo $rows['username'] ?>
                         </td>
                         <td class="py-2">
                             <?php echo $rows['email'] ?>
@@ -160,12 +172,14 @@ if (isset($_POST['submit'])) {
                         }
                         while ($rows = mysqli_fetch_assoc($result)) {
                             ?>
-                            <option class="table" value="<?php echo $rows['id']; ?>">
+                            <?php if ($rows['username'] != "admin") { ?>
+                                <option class="table" value="<?php echo $rows['id']; ?>">
 
-                                <?php echo $rows['name']; ?> (Balance:
-                                <?php echo $rows['balance']; ?> )
+                                    <?php echo $rows['username']; ?>
+                                    <!-- (Balance: <?php echo $rows['balance']; ?> ) -->
 
-                            </option>
+                                </option>
+                            <?php } ?>
                             <?php
                         }
                         ?>
