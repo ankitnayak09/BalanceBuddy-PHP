@@ -50,16 +50,28 @@
 
                     include 'config.php';
 
-                    $sql = "SELECT * FROM transaction";
+                    $username = $_COOKIE['username'];
+                    if ($username != 'admin') {
+                        $sql = "SELECT * FROM transaction where sender='$username' or receiver='$username'";
+                    } else {
+                        $sql = "SELECT * FROM transaction";
+                    }
 
                     $query = mysqli_query($conn, $sql);
-
+                    $count = 1;
                     while ($rows = mysqli_fetch_assoc($query)) {
                         ?>
 
                         <tr style="color : white;">
                             <td class="py-2">
-                                <?php echo $rows['sno']; ?>
+
+                                <?php
+                                if ($username == "admin") {
+                                    echo $rows['sno'];
+                                } else {
+                                    echo $count++;
+                                }
+                                ?>
                             </td>
                             <td class="py-2">
                                 <?php echo $rows['sender']; ?>
@@ -67,7 +79,13 @@
                             <td class="py-2">
                                 <?php echo $rows['receiver']; ?>
                             </td>
-                            <td class="py-2">Rs.
+                            <td class="py-2" style="<?php if ($username == $rows['sender']) {
+                                echo 'color:red';
+                            } else if ($username == $rows['receiver']) {
+                                echo 'color:green';
+                            } else {
+                            } ?>">Rs.
+
                                 <?php echo $rows['balance']; ?> /-
                             </td>
                             <td class="py-2">
