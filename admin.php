@@ -44,6 +44,15 @@
       </div>
     </div>
 
+    <div class="row mt-5">
+      <div class="col">
+        <h1 class="username-greeting">Hi,
+          <?= $_SESSION['username']; ?>
+        </h1>
+      </div>
+    </div>
+
+
     <!-- Activity section -->
     <div class="row activity text-center py-5">
       <!-- <div class="col-md act">
@@ -61,7 +70,7 @@
       <div class="col-md act">
         <img src="img/transaction.png" width="200" height="200" class="img-fluid my-2">
         <br>
-        <a href="transfermoney.php"><button style="background-color : #2785C4;">Make a Transaction</button></a>
+        <a href="transfermoney.php"><button style="background-color : #2785C4;">Make a Deposit</button></a>
       </div>
       <div class="col-md act">
         <img src="img/clock.png" width="200" height="200" class="img-fluid my-2">
