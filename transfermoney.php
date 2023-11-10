@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,7 +50,15 @@
     ?>
 
     <div class="container">
-        <h2 class="text-center pt-4" style="color : #6c757d;">Transfer Money</h2>
+        <h2 class="text-center pt-4" style="color : #6c757d;">
+            <?php if ($_SESSION["username"] != "admin") {
+                echo "Transfer";
+            } else {
+                echo "Deposit";
+            }
+            ?>
+            Money
+        </h2>
         <br>
         <div class="row">
             <div class="col">
@@ -73,7 +85,7 @@
                                         ; ?>
                                     </td>
                                     <td class="py-2">
-                                        <?php echo $rows['name'] ?>
+                                        <?php echo $rows['username'] ?>
                                     </td>
                                     <td class="py-2">
                                         <?php echo $rows['email'] ?>
@@ -81,7 +93,7 @@
                                     <td class="py-2">Rs.
                                         <?php echo $rows['balance'] ?> /-
                                     </td>
-                                    <td><a href="selecteduserdetail.php?id= <?php echo $rows['id']; ?>"> <button
+                                    <td><a href="selecteduserdetail.php?id=<?php echo $rows['id']; ?>"> <button
                                                 type="button" class="btn" style="background-color : #e6b31a;"
                                                 style="border-radius:0%;">Proceed</button></a></td>
                                 </tr>
