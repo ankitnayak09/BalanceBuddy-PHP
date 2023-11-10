@@ -46,7 +46,7 @@
 
     <!-- Activity section -->
     <div class="row activity text-center py-5">
-      <div class="col-md act">
+      <!-- <div class="col-md act">
         <img src="img/user.jpg" class="img-fluid my-2" style="border-radius: 50%">
         <br>
         <a href="createuser.php"><button style="background-color : #2785C4;" style="border-radius:0%">Create a
@@ -57,14 +57,14 @@
         <br>
         <a href="removeuser.php"><button style="background-color : #2785C4;" style="border-radius:0%">Delete
             Users</button></a>
-      </div>
+      </div> -->
       <div class="col-md act">
-        <img src="img/transfer.jpg" class="img-fluid my-2" style="border-radius: 50%">
+        <img src="img/transaction.png" width="200" height="200" class="img-fluid my-2">
         <br>
         <a href="transfermoney.php"><button style="background-color : #2785C4;">Make a Transaction</button></a>
       </div>
       <div class="col-md act">
-        <img src="img/history.jpg" class="img-fluid my-2" style="border-radius: 50%">
+        <img src="img/clock.png" width="200" height="200" class="img-fluid my-2">
         <br>
         <a href="transactionhistory.php"><button style="background-color : #2785C4;">Transaction History</button></a>
       </div>
